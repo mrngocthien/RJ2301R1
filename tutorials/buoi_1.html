@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Book {
+            constructor(bookCode, price, author) {
+                this.bookCode = bookCode,
+                this.name = [],
+                this.price = price,
+                this.author = author;
+            }
+            set bookName(value) {
+                this.name.push(value);
+            }
+            get bookName() {
+                return this.name;
+            }
+        }
+
+        class ProgrammingBook {
+            constructor(language, frameWork) {
+                this.super = Book;
+                this.language = language,
+                this.frameWork = frameWork;
+            }
+            set lang(value) {
+                this.language = value;
+            }
+            get lang() {
+                return this.language;
+            }
+        }
+
+        class FictionBook {
+            constructor(category) {
+                this.super = ProgrammingBook;
+                this.category = category;
+            }
+            set bookCategory(value) {
+                this.category = value;
+            }
+            get bookCategory() {
+                return this.category;
+            }
+        }
+
+
+        let book = new FictionBook(123, 13, 'ngocthien');
+        book.name = "Learning JavaScript";
+        book.language = 'JavaScript';
+        book.category= 'Must-read'
+        console.log('Book name: ' + book.name);
+        console.log('Language: ' + book.language);
+        console.log( 'Catalog: ' + book.category);
+    </script>
+</body>
+</html>
