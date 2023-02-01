@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const animals = [
+            {
+                "name": "cat",
+                "size": "small",
+                "weight": 5
+            },
+            {
+                "name": "dog",
+                "size": "small",
+                "weight": 10
+            },
+            {
+                "name": "lion",
+                "size": "medium",
+                "weight": 150
+            },
+            {
+                "name": "elephant",
+                "size": "big",
+                "weight": 5000
+            }
+        ]
+
+        // kiem tra ten dong vat 
+        let check_animals = animals.filter((animal) => {
+            return animal.name === "cat"
+        });
+        console.log(check_animals);
+
+        // in danh sach dong vat
+        let animal_names = animals.map((animal, index, animals) => {
+            return animal.name
+        });
+        console.log(animal_names);
+
+        // xoa dong vat bat ky
+        let new_animals = animals.filter((animal) => {
+            return animal.name != "cat"
+        });
+        console.log(new_animals);
+    </script>
+</body>
+</html>
