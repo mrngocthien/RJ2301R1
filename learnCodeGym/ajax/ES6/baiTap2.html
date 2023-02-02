@@ -8,46 +8,21 @@
 </head>
 <body>
     <script>
-        const animals = [
-            {
-                "name": "cat",
-                "size": "small",
-                "weight": 5
-            },
-            {
-                "name": "dog",
-                "size": "small",
-                "weight": 10
-            },
-            {
-                "name": "lion",
-                "size": "medium",
-                "weight": 150
-            },
-            {
-                "name": "elephant",
-                "size": "big",
-                "weight": 5000
-            }
-        ]
-
-        // kiem tra ten dong vat 
-        let check_animals = animals.filter((animal) => {
-            return animal.name === "cat"
-        });
-        console.log(check_animals);
+        const animals = new Set(['cat', 'dog', 'elephant']);
 
         // in danh sach dong vat
-        let animal_names = animals.map((animal, index, animals) => {
-            return animal.name
-        });
-        console.log(animal_names);
+        animals.forEach((item) => {console.log(item)});
+
+        // kiem tra ten 1 dong vat bat ky
+        console.log(animals.has('cat'));
+
+        // them 1 dong vat bay ky
+        animals.add('monkey');
+        animals.forEach((item) => {console.log(item)});
 
         // xoa dong vat bat ky
-        let new_animals = animals.filter((animal) => {
-            return animal.name != "cat"
-        });
-        console.log(new_animals);
+        animals.delete('monkey')
+        animals.forEach((item) => {console.log(item)});
     </script>
 </body>
 </html>
