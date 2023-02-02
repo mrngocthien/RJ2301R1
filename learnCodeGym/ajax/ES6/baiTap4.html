@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Person {
+            constructor(name) {
+                this.name = name;
+            }
+            getName() {
+                return this.name;
+            }
+            setName(newName) {
+                this.name = newName;
+            }
+        }
+        
+        class Programmer extends Person {
+            writeCode() {
+                console.log('This is my code');
+            }
+        }
+
+        let programmer = new Programmer('Thien');
+        console.log(programmer.getName());
+        
+        programmer.setName('NgocThien')
+        console.log(programmer.getName());
+
+
+    </script>
+</body>
+</html>
