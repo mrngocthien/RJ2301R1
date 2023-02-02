@@ -19,8 +19,13 @@
         let birdsID = birds.map((bird, index, birds) => {
             return bird.ID;
         });
-
         console.log(birdsID);
+
+        let idArray = birds.map(getBirdId);
+        function getBirdId(item) {
+            return item.ID;
+        }
+        console.log(idArray);
     </script>
 </body>
 </html>
