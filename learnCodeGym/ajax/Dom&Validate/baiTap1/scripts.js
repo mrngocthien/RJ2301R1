@@ -7,8 +7,8 @@ function isFirstLetterUpperCase(str) {
     }
 }
 
-isFirstLetterUpperCase('Abcd');
-isFirstLetterUpperCase('abcd');
-isFirstLetterUpperCase('Nguyen van Nam');
-isFirstLetterUpperCase('NGUYEN VAN NAM');
-isFirstLetterUpperCase('nguyen van nam');
+// isFirstLetterUpperCase('Abcd');
+// isFirstLetterUpperCase('abcd');
+// isFirstLetterUpperCase('Nguyen van Nam');
+// isFirstLetterUpperCase('NGUYEN VAN NAM');
+// isFirstLetterUpperCase('nguyen van nam');
