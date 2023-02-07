@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //synchronus : uu tien chay dau tien
+        //asynchronus : dua vao queue de xu ly do ton thoi gian, duoc phan thanh 2 loai
+            //microtasks : Promise => uu tien duoc xu ly thu 2 do la microtasks
+            //macrotasks : SetTimeOut => xu ly sau Promise cho du co dua vao queue truoc vi la macrotasks
+        const promise = new Promise((resolve, reject) => {
+            const a = 3;
+            if (a % 2 === 0) {
+                resolve(a);
+            }
+            reject('So nay ko phai so chan !');
+        });
+
+        promise
+        .then(data => console.log('Data:', data))
+        .catch(err => console.log('Error: ', err));
+    </script>
+</body>
+</html>
