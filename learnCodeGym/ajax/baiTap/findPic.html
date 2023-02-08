@@ -42,36 +42,38 @@
         color: #fff;
         text-align: center;
         padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    img {
+        width: 25%;
     }
 </style>
 <body>
-    <h1>giphy party</h1>
+    <h1>Giphy Search</h1>
     <div class="container">
         <input type="text" name="" id="inputText">
-        <input class="btn" type="button" value="Search Giphy" onclick="searching()">
-        <input class="btn" type="button" value="Remove Image" onclick="removeAll()">
+        <input class="btn" type="button" value="Search Giphy" onclick="searchGiphy()">
+        <input class="btn" type="button" value="Remove Images" onclick="removeAll()">
     </div>
 
-    <div id="img-area"></div>    
-    
+    <div id="img-area"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        let searchingKey = document.getElementById('inputText');
+        let searchInput = document.getElementById("inputText");
         let giphyKey = 'CEl0bTLgq3QSN8WruASrl9X3RVUwiA2S';
         
-    
-        function searching() {
-            console.log(`Search Content: ${searchingKey.value}`);
+        function searchGiphy() {
+            let searchTerm = searchInput.value;
+            console.log(`Search Content: ${searchTerm}`);
 
-            axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchingKey}&api_key=${giphyKey}`)
+            axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${giphyKey}`)
                 .then(response => {
                     const data = response.data;
-                    const dataOne = data.data[0].url;
-                    console.log(dataOne);
-                    addImg();
-                    document.getElementById('img').src = `${dataOne}`;
-                    
-
+                    console.log(data);
+                    addImages(data.data);
                 })
                 .catch(error => {
                 console.error('There was a problem with the axios request:', error);
@@ -83,15 +85,16 @@
             searchingKey.value = '';
         }
 
-        function addImg() {
+        function addImages(images) {
             let imgContainer = document.getElementById('img-area');
-            let img = document.createElement('img');
-            let node = document.createTextNode('');
-            img.appendChild(node);
-            imgContainer.appendChild(img);
-            img.id = 'img';
+            images.forEach(image => {
+                let img = document.createElement('img');
+                img.src = image.images.downsized_medium.url;
+                img.alt = image.title;
+                imgContainer.appendChild(img);
+            });
         }
-        
     </script>
 </body>
+
 </html>
