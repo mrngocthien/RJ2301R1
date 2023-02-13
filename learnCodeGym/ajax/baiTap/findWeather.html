@@ -43,41 +43,70 @@
         text-align: center;
         padding-top: 20px;
     }
+    #weather-data-list {
+        padding-top: 20px;
+        width: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: space-around;
+        list-style-type: none;
+    }
 </style>
 <body>
-    <h1>open weather tool</h1>
-    <div class="container">
-        <input class="inp" type="text" name="" id="inputLat">
-        <input class="inp" type="text" name="" id="inputLon">
-        <input class="btn" type="button" value="Search" onclick="searching()">
-        <input class="btn" type="button" value="Remove" onclick="removeAll()">
-    </div>
+  <h1>Weather Data</h1>
+  <div class="container">
+    <input type="text" name="" id="cityInput">
+    <input class="btn" type="button" value="Get Weather" onclick="getWeatherData()">
+    <input class="btn" type="button" value="Remove All" onclick="removeAll()">
+  </div>
 
-    <div id="weatherInfo"></div>    
+  <ul id="weather-data-list"></ul>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    let cityInput = document.getElementById("cityInput");
+    let weatherDataList = document.getElementById("weather-data-list");
+
+    function getWeatherData() {
+      let city = cityInput.value;
+      let apiKey = "a133238e03b5089cbb9e1cdaa2d6e220";
+
+      axios
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+        .then(response => {
+            let weatherData = response.data;
+            console.log(weatherData);
+            // Clear previous data
+            removeAll();
+            renderData(weatherData);
+            
+        })
+        .catch(error => {
+          console.error("There was a problem with the axios request:", error);
+        });
+    }
     
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        let latKey = document.getElementById('inputLat');
-        let lonKey = document.getElementById('inputLon');
-        let apiKey = 'a133238e03b5089cbb9e1cdaa2d6e220';
-        
-    
-        function searching() {
-            console.log(`Search Content: Latitude: ${latKey.value} & Longitude: ${lonKey.value}`);
+    function removeAll() {
+        weatherDataList.innerHTML = "";
+        cityInput.value = '';
+    }
 
-            axios.get(`https://api.openweathermap.org/data/3.0/onecall?${latKey}&${lonKey}&exclude=hourly,daily&appid=${apiKey}`)
-                .then(response => {
-                    console.log(response.data)
-                })
-                .catch(error => console.error(error));
-        }
+    function renderData(data) {
+        // Add new data to the list
+        let cityName = data.name;
+        let temperature = data.main.temp;
+        let pressure = data.main.pressure;
+        let humidity = data.main.humidity;
 
-        function removeAll() {
-            document.getElementById('weatherInfo').innerHTML = '';
-            searchingKey.value = '';
-        }
-
-        
-    </script>
+        weatherDataList.innerHTML += `
+            <li>City: ${cityName}</li>
+            <li>Temperature: ${temperature}</li>
+            <li>Pressure: ${pressure}</li>
+            <li>Humidity: ${humidity}</li>
+        `;
+    }
+  </script>
 </body>
+
+
 </html>
