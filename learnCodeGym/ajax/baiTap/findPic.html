@@ -57,21 +57,20 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         let searchingKey = document.getElementById('inputText');
-        let giphyKey = 'CEl0bTLgq3QSN8WruASrl9X3RVUwiA2S';
+        let giphyKey = '7xTfr196uLfUPmujXIiytuO1fqUSvY3U';
+        let url = `http://api.giphy.com/v1/gifs/search?q=${searchingKey.value}&api_key=${giphyKey}`;
         
     
         function searching() {
             console.log(`Search Content: ${searchingKey.value}`);
 
-            axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchingKey}&api_key=${giphyKey}`)
+            axios.get(url)
                 .then(response => {
                     const data = response.data;
-                    const dataOne = data.data[0].url;
-                    console.log(dataOne);
+                    console.log('data: ' + data.data[0].url);
                     addImg();
-                    document.getElementById('img').src = `${dataOne}`;
+                    // document.getElementById('img').src = `${dataUrl}`;
                     
-
                 })
                 .catch(error => {
                 console.error('There was a problem with the axios request:', error);
