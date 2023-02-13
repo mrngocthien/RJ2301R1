@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        background: #000;
+        color: #fff;
+        font-family: sans-serif;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+    }
+    input {
+        margin: 5px;
+    }
+    h1 {
+        text-transform: uppercase;
+        text-align: center;
+        padding-top: 10px;
+    }
+    .btn {
+        background: rgb(47, 43, 43);
+    }
+    .btn:hover {
+        background: orangered;
+    }
+    .inp {
+        background: #fff;
+        color: #000;
+    }
+    #img-area {
+        color: #fff;
+        text-align: center;
+        padding-top: 20px;
+    }
+    #weather-data-list {
+        padding-top: 20px;
+    }
+    #weatherImg {
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<body>
+  <h1>Weather Data</h1>
+  <div class="container">
+    <input type="text" name="" id="cityInput">
+    <input class="btn" type="button" value="Get Weather" onclick="getWeatherData()">
+    <input class="btn" type="button" value="Remove All" onclick="removeAll()">
+  </div>
+
+  <ul id="weather-data-list"></ul>
+  <div id="img-area"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    let cityInput = document.getElementById("cityInput");
+    let weatherDataList = document.getElementById("weather-data-list");
+    let weatherImg = document.getElementById('img-area');
+
+    function getWeatherData() {
+      let city = cityInput.value;
+      let apiKey = "a133238e03b5089cbb9e1cdaa2d6e220";
+
+      axios
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+        .then(response => {
+            let weatherData = response.data;
+            console.log(weatherData);
+            // Clear previous data
+            removeAll();
+            renderData(weatherData);
+            
+        })
+        .catch(error => {
+          console.error("There was a problem with the axios request:", error);
+        });
+    }
+    
+    function removeAll() {
+        weatherDataList.innerHTML = '';
+        weatherImg.innerHTML = '';
+        cityInput.value = '';
+    }
+
+    function renderData(data) {
+        // Add new data to the list
+        let cityName = data.name;
+        let country = data.sys.country;
+        let temperature = data.main.temp;
+        let description = data.weather[0].description
+        let pressure = data.main.pressure;
+        let humidity = data.main.humidity;
+        let windSpeed = data.wind.speed;
+
+        weatherDataList.innerHTML += `
+            <li>City: ${cityName}</li>
+            <li>Country: ${country}</li>
+            <li>Temperature: ${temperature - 273.15} C</li>
+            <li>Description: ${description}</li>
+            <li>Pressure: ${pressure}</li>
+            <li>Humidity: ${humidity}</li>
+            <li>Wind Speed: ${windSpeed}</li>
+        `;
+        searchGiphy(description);
+        
+    }
+
+    function searchGiphy(searchTerm) {
+        console.log(`Search Content: ${searchTerm}`);
+        document.getElementById('img-area').innerHTML = '';
+        weatherImg.innerHTML = "";
+
+        let giphyKey = 'CEl0bTLgq3QSN8WruASrl9X3RVUwiA2S';
+        
+        axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${giphyKey}`)
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+                addImages(data.data)
+            })
+            .catch(error => {
+            console.error('There was a problem with the axios request:', error);
+            });
+            
+            function addImages(images) {
+                let imgContainer = document.getElementById('img-area');
+                let img = document.createElement('img');
+                img.src = images[0].images.downsized_medium.url;
+                img.alt = images.title;
+                imgContainer.appendChild(img);
+            
+            }
+    }
+
+  </script>
+</body>
+
+
+</html>

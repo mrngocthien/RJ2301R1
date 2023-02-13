@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        background: #000;
+        color: #fff;
+        font-family: sans-serif;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+    }
+    input {
+        margin: 5px;
+    }
+    h1 {
+        text-transform: uppercase;
+        text-align: center;
+        padding-top: 10px;
+    }
+    .btn {
+        background: rgb(47, 43, 43);
+    }
+    .btn:hover {
+        background: orangered;
+    }
+    #inputText {
+        background: #fff;
+        color: #000;
+    }
+    #img-area {
+        color: #fff;
+        text-align: center;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    img {
+        width: 25%;
+    }
+</style>
+<body>
+    <h1>Giphy Search</h1>
+    <div class="container">
+        <input type="text" name="" id="inputText">
+        <input class="btn" type="button" value="Search Giphy" onclick="searchGiphy()">
+        <input class="btn" type="button" value="Remove Images" onclick="removeAll()">
+    </div>
+
+    <div id="img-area"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let searchInput = document.getElementById("inputText");
+        let giphyKey = 'CEl0bTLgq3QSN8WruASrl9X3RVUwiA2S';
+        
+        function searchGiphy() {
+            document.getElementById('img-area').innerHTML = '';
+
+            let searchTerm = searchInput.value;
+            console.log(`Search Content: ${searchTerm}`);
+
+            axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${giphyKey}`)
+                .then(response => {
+                    const data = response.data;
+                    console.log(data);
+                    addImages(data.data);
+                })
+                .catch(error => {
+                console.error('There was a problem with the axios request:', error);
+                });
+        }
+
+        function removeAll() {
+            document.getElementById('img-area').innerHTML = '';
+            searchingKey.value = '';
+        }
+
+        function addImages(images) {
+            let imgContainer = document.getElementById('img-area');
+            images.forEach(image => {
+                let img = document.createElement('img');
+                img.src = image.images.downsized_medium.url;
+                img.alt = image.title;
+                imgContainer.appendChild(img);
+            });
+        }
+    </script>
+</body>
+
+</html>
