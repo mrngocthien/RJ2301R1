@@ -45,11 +45,11 @@
     }
     #weather-data-list {
         padding-top: 20px;
-        width: 50%;
-        margin: auto;
+    }
+    #weatherImg {
+        padding-top: 20px;
         display: flex;
-        justify-content: space-around;
-        list-style-type: none;
+        justify-content: center;
     }
 </style>
 <body>
@@ -61,11 +61,13 @@
   </div>
 
   <ul id="weather-data-list"></ul>
+  <div id="img-area"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     let cityInput = document.getElementById("cityInput");
     let weatherDataList = document.getElementById("weather-data-list");
+    let weatherImg = document.getElementById('img-area');
 
     function getWeatherData() {
       let city = cityInput.value;
@@ -87,24 +89,61 @@
     }
     
     function removeAll() {
-        weatherDataList.innerHTML = "";
+        weatherDataList.innerHTML = '';
+        weatherImg.innerHTML = '';
         cityInput.value = '';
     }
 
     function renderData(data) {
         // Add new data to the list
         let cityName = data.name;
+        let country = data.sys.country;
         let temperature = data.main.temp;
+        let description = data.weather[0].description
         let pressure = data.main.pressure;
         let humidity = data.main.humidity;
+        let windSpeed = data.wind.speed;
 
         weatherDataList.innerHTML += `
             <li>City: ${cityName}</li>
-            <li>Temperature: ${temperature}</li>
+            <li>Country: ${country}</li>
+            <li>Temperature: ${temperature - 273.15} C</li>
+            <li>Description: ${description}</li>
             <li>Pressure: ${pressure}</li>
             <li>Humidity: ${humidity}</li>
+            <li>Wind Speed: ${windSpeed}</li>
         `;
+        searchGiphy(description);
+        
     }
+
+    function searchGiphy(searchTerm) {
+        console.log(`Search Content: ${searchTerm}`);
+        document.getElementById('img-area').innerHTML = '';
+        weatherImg.innerHTML = "";
+
+        let giphyKey = 'CEl0bTLgq3QSN8WruASrl9X3RVUwiA2S';
+        
+        axios.get(`http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${giphyKey}`)
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+                addImages(data.data)
+            })
+            .catch(error => {
+            console.error('There was a problem with the axios request:', error);
+            });
+            
+            function addImages(images) {
+                let imgContainer = document.getElementById('img-area');
+                let img = document.createElement('img');
+                img.src = images[0].images.downsized_medium.url;
+                img.alt = images.title;
+                imgContainer.appendChild(img);
+            
+            }
+    }
+
   </script>
 </body>
 
