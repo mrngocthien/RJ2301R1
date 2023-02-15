@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Welcome from './components/Welcome';
+import Alert from './components/Welcome';
 
 function App() {
     return (
         <div className="App">
-            <Welcome name="Admin" />
+            <Alert text="Cảnh báo! Tài nguyên bạn vừa truy cập không tồn tại." />
         </div>
     );
 }
