@@ -1,11 +1,13 @@
 import './App.css'
-import BookRegistrationForm from './components/bookRegister';
-import ContactForm from './components/contactForm';
+import BookRegistrationForm from './components/BookRegister';
+import ContactForm from './components/ContactForm';
+import MailForm from './components/MailForm';
 
 function App() {
   return (
     // <BookRegistrationForm />
-    <ContactForm />
+    // <ContactForm />
+    <MailForm />
   );
 }
 
