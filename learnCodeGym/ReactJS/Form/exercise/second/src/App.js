@@ -1,6 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
-import BookRegistrationForm from './components/submit';
+import './App.css'
+import BookRegistrationForm from './components/bookRegister';
 
 function App() {
   return (

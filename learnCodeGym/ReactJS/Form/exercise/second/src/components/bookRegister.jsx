@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import '../styles/bookRegister.module.css'
 
-export default function App() {
+export default function BookRegistrationForm() {
   const [books, setBooks] = useState([]);
   const [form, setForm] = useState({});
   const [indexSelected, setIndexSelected] = useState(-1);
