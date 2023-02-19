@@ -1,0 +1,67 @@
+.container {
+  width: 30%;
+  margin: auto;
+  background: wheat;
+}
+
+label {
+  display: block;
+  padding: 5px;
+}
+
+input {
+  width: 95%;
+  padding: 5px;
+}
+
+.custom-input {
+  padding-bottom: 2%;
+}
+
+.custom-input-error label {
+  color: red;
+}
+
+.custom-input-error input {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+
+.error {
+  color: red;
+  margin: 0;
+}
+
+.width-auto {
+  width: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin: auto;
+}
+
+td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+h1 {
+  color: red;
+  text-transform: uppercase;
+  text-align: center;
+}
+button {
+  margin: 10px 5px;
+}
