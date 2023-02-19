@@ -1,5 +1,5 @@
 .container {
-  width: 30%;
+  width: 40%;
   margin: auto;
   background: wheat;
 }
@@ -42,7 +42,7 @@ input {
 
 table {
   font-family: arial, sans-serif;
-  border-collapse: collapse;
+  border-collapse:separate;
   width: 100%;
   margin: auto;
 }
@@ -53,15 +53,21 @@ td, th {
   padding: 5px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
 h1 {
   color: red;
   text-transform: uppercase;
   text-align: center;
 }
+
+textarea {
+  margin: 5px;
+}
+
+.checkbox {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 button {
   margin: 10px 5px;
 }
