@@ -1,9 +1,9 @@
 
-export default function HomePage() {
-    return (
-      <div>
-        <h1>Welcome to my app!</h1>
-        <p>This is the home page.</p>
-      </div>
-    );
+export default function Home({ user, onLogout }) {
+  return (
+    <div>
+      <h1>Welcome {user.email}</h1>
+      <button onClick={onLogout}>Logout</button>
+    </div>
+  );
 }
