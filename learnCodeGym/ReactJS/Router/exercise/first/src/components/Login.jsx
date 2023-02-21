@@ -10,20 +10,22 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Email:
+          Email:<br/>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <br />
         <label>
-          Password:
+          Password:<br/>
           <input type="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <div className='btn'>
+          <button type="submit">Login</button>
+        </div>
       </form>
     </div>
   );
