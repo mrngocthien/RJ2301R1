@@ -1,0 +1,88 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  width: 20%;
+  margin: auto;
+  background: wheat;
+  border: 1px solid black;
+  margin-top: 30px;
+}
+
+h1 {
+  text-transform: uppercase;
+  color: red;
+  text-align: center;
+}
+.inputNum {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
+}
+input {
+  margin-top: 10px;
+}
+.btn {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 15px 10px 15px;
+}
+button {
+  width: 20%;
+}
+h3 {
+  padding-left: 15px;
+}
+#result {
+  color: red;
+}
+#btn-clear, #btn-cal {
+  margin: 10px 15px;
+  width: 90%;
+  background: green;
+  color: white;
+  cursor: pointer;
+  transition: 0.5s;
+}
+#btn-clear:hover, #btn-cal:hover {
+  background: orange;
+  color: black;
+}
