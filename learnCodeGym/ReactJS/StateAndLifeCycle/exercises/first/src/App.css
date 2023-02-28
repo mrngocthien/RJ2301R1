@@ -37,14 +37,7 @@
   }
 }
 
-table, th, td {
-  border: 1px solid #282c34;
-}
-/* table {
-  width: 20%;
-  margin: auto;
-} */
 h1 {
-  color: red;
-  text-align: center;
+  background: green;
+  color: white;
 }
