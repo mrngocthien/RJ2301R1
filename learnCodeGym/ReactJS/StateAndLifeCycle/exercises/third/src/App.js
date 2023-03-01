@@ -1,45 +1,52 @@
+import { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
-import { useState } from 'react';
-import Login from './components/Login';
+import SignIn from './components/SignIn';
 
 export default function App() {
-  const [form, setForm] = useState();
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    isRemember: false,
+  });
+  const [isValid, setIsValid] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (event) => {
-    this.setState((state) => {
-      const { form } = state
-      form[event.target.name] = event.target.value
-      return { form }
-    }, () => this.checkValidForm())
-  }
-  
+    const { name, value } = event.target;
+    setForm((prevForm) => ({ ...prevForm, [name]: value }));
+  };
+
   const handleChangeCheckbox = () => {
-    this.setState((state) => {
-      const { form } = state
-      form.isRemember = !form.isRemember
-      return { form }
-    }, () => this.checkValidForm())
-  }
- 
+    setForm((prevForm) => ({ ...prevForm, isRemember: !prevForm.isRemember }));
+  };
+
   const checkValidForm = () => {
-    const { email, password } = this.state.form
-    const value = email && password
-    this.setState({ isValid: value })
-  }
- 
+    const { email, password } = form;
+    const value = email && password;
+    setIsValid(value);
+  };
+
   const handleSubmit = () => {
-    if (this.state.isValid){
-      setIsLoggedIn(true)
+    checkValidForm();
+    if (isValid) {
+      setIsLoggedIn(true);
     }
-  }
- 
+  };
+  
+
   const handleLogOut = () => {
-    setIsLoggedIn(false)
-  }
-  return (
-    // <Home />
-    <Login />
-  );
+    setIsLoggedIn(false);
+  };
+
+  
+  if (isLoggedIn) return <Home onLogOut={handleLogOut} />;
+  return(
+    <SignIn
+      form={form} 
+      handleChange={handleChange} 
+      handleChangeCheckbox={handleChangeCheckbox}
+      handleSubmit={handleSubmit}
+    />  
+  ) 
 }
