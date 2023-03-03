@@ -38,7 +38,6 @@ export default function CarSelected() {
                 </span>
             </p>
             <h3>Your favourite is {selectedCar.car} - {selectedCar.color}</h3>
-            {/* <button onClick={handleSelectedCar}>Submit</button> */}
         </div>
     )
 }
