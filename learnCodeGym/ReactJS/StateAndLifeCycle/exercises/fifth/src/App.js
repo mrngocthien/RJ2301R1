@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StudentsList from "./StudentsList";
+import StudentsList from "./components/StudentsList";
 
 
 export default function App() {
@@ -14,7 +14,6 @@ export default function App() {
 
   function handleChange(event) {
     setForm((prevForm) => ({ ...prevForm, [event.target.name]: event.target.value }));
-    checkInvalidForm();
   }
 
   function handleSelect(studentSelected, index) {
@@ -26,6 +25,7 @@ export default function App() {
     const { name, phone, email } = form;
     const value = name && phone && email;
     setIsValid(value);
+    
   }
 
   function handleSubmit() {
@@ -54,8 +54,6 @@ export default function App() {
     <StudentsList
       studentList={studentList}
       form={form}
-      indexSelected={indexSelected}
-      isValid={isValid}
       handleChange={handleChange}
       handleSelect={handleSelect}
       handleSubmit={handleSubmit}
