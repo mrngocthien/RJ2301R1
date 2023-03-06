@@ -11,7 +11,7 @@ export default function ValidateSignUpForm() {
   const REGEX = {
     username: /^[a-zA-Z]{2,}$/,
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    password: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/
+    password: /^[a-zA-Z0-9!@#%*+=._-]{6,}$/
   };
 
   const [form, setForm] = useState({});

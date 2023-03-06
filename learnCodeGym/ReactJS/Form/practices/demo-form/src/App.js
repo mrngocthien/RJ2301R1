@@ -10,8 +10,8 @@ function App() {
   return (
     // <SimpleForm />
     // <ValidateSignUpForm />
-    // <ValidateLoginForm />
-    <ValidateFormik />
+    <ValidateLoginForm />
+    // <ValidateFormik />
   );
 }
 

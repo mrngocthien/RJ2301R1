@@ -4,9 +4,10 @@ export default function SimpleForm() {
   const [form, setForm] = useState({});
 
   function handleChange(event) {
+    const { name, value } = event.target;
     setForm({
       ...form,
-      [event.target.name]: event.target.value
+      [name]: value
     });
   }
 

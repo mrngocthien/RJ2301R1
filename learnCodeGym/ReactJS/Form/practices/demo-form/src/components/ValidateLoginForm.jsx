@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import SimpleForm from "./SignUpForm";
-import FormValidate from "./ValidateSignUpForm";
 
 export default function ValidateLoginForm() {
   const MESSAGE_ERROR = {
@@ -10,7 +8,7 @@ export default function ValidateLoginForm() {
 
   const REGEX = {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    password: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/
+    password: /^[a-zA-Z0-9!@#%*+=._-]{6,}$/
   };
 
   const [form, setForm] = useState({});
@@ -26,8 +24,7 @@ export default function ValidateLoginForm() {
   }
 
   function handleSubmit() {
-    const isFilled =
-      form.email && form.email.value && form.password && form.password.value;
+    const isFilled = form.email && form.email.value && form.password && form.password.value;
     const isError = isFilled && (form.email.error || form.password.error);
     alert(
       isFilled && !isError
