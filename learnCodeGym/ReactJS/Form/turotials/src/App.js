@@ -24,7 +24,8 @@ export default function App() {
       alert('Wrong username')
     } else {
       alert('Wrong password')
-    } 
+    }
+    setFormValues((prevValues) => ({...prevValues, username:'', password:''}));
   }; 
 
   const handleLogout = () => {

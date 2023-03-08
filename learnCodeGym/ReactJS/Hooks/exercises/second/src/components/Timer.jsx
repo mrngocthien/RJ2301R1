@@ -9,8 +9,8 @@ export default function Timer() {
         }, 1000);
 
         if (timer === 0) {
-        clearInterval(intervalId);
-        alert("Time's up!");
+            clearInterval(intervalId);
+            alert("Time's up!");
         }
 
         return () => clearInterval(intervalId);

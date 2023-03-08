@@ -1,12 +1,14 @@
-import useIncrement from "../hooks/useIncrement";
+import {useIncrement} from "../hooks/useIncrement";
+
+const incrementBy = 2;
 
 export default function Counter2() {
-    const [count, increase] = useIncrement(2);
+    const [count, increase] = useIncrement(incrementBy);
 
   return (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={() => increase()}>Increase 2</button>
+        <h1>Count: {count}</h1>
+        <button onClick={() => increase()}>Increase {incrementBy}</button>
     </div>
   );
 }
