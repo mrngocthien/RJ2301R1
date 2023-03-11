@@ -7,9 +7,9 @@ import MailForm from './components/MailForm';
 function App() {
   return (
     // <BookRegistrationForm />
-    // <ContactForm />
+    <ContactForm />
     // <MailForm />
-    <HealthDeclaration />
+    // <HealthDeclaration />
   );
 }
 
