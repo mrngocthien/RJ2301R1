@@ -5,7 +5,7 @@ Yup.setLocale({
         required: 'Truong nay khong duoc bo trong'
     },
     string: {
-        email: 'Truong nay bat buoc la email', 
+        email: 'Truong nay bat buoc la email'
     },
     number: {
         phone: 'Truong nay bat buoc la so'

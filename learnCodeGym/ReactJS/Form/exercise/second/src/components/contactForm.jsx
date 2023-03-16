@@ -1,11 +1,5 @@
-import React, { useState } from 'react';
-import { Formik } from 'formik';
 import { useFormik } from 'formik';
-
-const REGEX = {
-  email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-  phone: /^[0-9]$/
-};
+import ContactFormDTO from '../dto/ContactFormDTO';
 
 function ContactForm() {
   const {errors, values, handleSubmit, handleChange} = useFormik({
@@ -13,15 +7,48 @@ function ContactForm() {
       name: '',
       email: '',
       phone: '',
-      messege: ''
+      message: ''
     },
     validationSchema: ContactFormDTO,
     onSubmit: (values) => {
       console.log(values)
     },
     validateOnChange: false,
-  })
+  });
+
+  return (
+        <div className="container">
+          <h1>contact form</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+            Name:
+            <input type="text" name="name" value={values.name} onChange={handleChange} />
+            {errors.name && <span className="error">{errors.name}</span>}
+            </label>
+            <label>
+            Email:
+            <input type="email" name="email" value={values.email} onChange={handleChange} />
+            {errors.email && <span className="error">{errors.email}</span>}
+            </label>
+            <label>
+            Phone:
+            <input type="tel" name="phone" value={values.phone} onChange={handleChange} />
+            {errors.phone && <span className="error">{errors.phone}</span>}
+            </label>
+            <label>
+            Message:<br/>
+            <textarea type="text" cols={49} rows={4} name="message" value={values.message} onChange={handleChange} />
+            {errors.message && <span className="error">{errors.message}</span>}
+            </label>
+            <button type="submit" onClick={handleSubmit}>
+            Submit
+            </button>
+          </form>
+        </div>
+      );
 }
+
+export {ContactForm}
 
 // export default function ContactForm() {
 //   const [form, setForm] = useState({});

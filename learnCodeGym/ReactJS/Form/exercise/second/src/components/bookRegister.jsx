@@ -1,79 +1,58 @@
-import React, { useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import React, {useState} from "react";
+import { useFormik} from "formik";
+import BookRegisterDTO from "../dto/BookRegisterDTO";
 
 export default function BookRegistrationForm() {
   const [books, setBooks] = useState([]);
-  const [form, setForm] = useState({});
   const [indexSelected, setIndexSelected] = useState(-1);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  };
-
-  const handleValidate = (values) => {
-    const errors = {};
-    if (!values.title) {
-      errors.title = "Required";
-    }
-    if (!values.number) {
-      errors.number = "Required";
-    }
-    return errors;
-  };
-
-  const errors = handleValidate(form);
+  const [isUpdateShown, setIsUpdateShown] = useState(false);
+  const {errors, values, handleSubmit, handleChange} = useFormik({
+    initialValues: {
+      title: '',
+      number: ''
+    },
+    validationSchema: BookRegisterDTO,
+    onSubmit: (values) => {
+      console.log(values)
+      const newBooks = JSON.parse(JSON.stringify(books));
+      if (indexSelected > -1) {
+        newBooks.splice(indexSelected, 1, values)
+      } else {
+        newBooks.push(values)
+      }
+      setBooks(newBooks);
+      setIndexSelected(-1);
+      setIsUpdateShown(false);
+    },
+    validateOnChange: false,
+  });
 
   const handleSelect = (book, index) => {
-    setForm(book);
     setIndexSelected(index);
+    setIsUpdateShown(true);
   };
-
+  
   const handleDelete = (index) => {
     const newBooks = JSON.parse(JSON.stringify(books));
     newBooks.splice(index, 1);
     setBooks(newBooks);
-  };
-
-  const handleSubmit = () => {
-    const newBooks = JSON.parse(JSON.stringify(books));
-    if (indexSelected > -1) {
-      newBooks.splice(indexSelected, 1, form);
-    } else {
-      newBooks.push(form);
-    }
-    setBooks(newBooks);
-    setForm({});
-    setIndexSelected(-1);
-  };
-
+  }
   return (
     <div className="container">
-      <Formik
-        enableReinitialize={true}
-        initialValues={form}
-        validate={handleValidate}
-        onSubmit={handleSubmit}
-      >
-        {({ values, touched, isSubmitting }) => (
-          <Form>
-            <h1>book register</h1>
-            <div>
-              <label htmlFor="title">Title</label>
-              <Field type="text" name="title" onChange={handleChange} />
-              <ErrorMessage name="title" />
-            </div>
-            <div>
-              <label htmlFor="number">Number</label>
-              <Field type="number" name="number" onChange={handleChange} />
-              <ErrorMessage name="number" />
-            </div>
-            <button type="submit" disabled={Object.keys(errors).length > 0}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
+      <form onSubmit={handleSubmit}>
+        <h1>book register</h1>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input type="text" name="title" value={values.title} onChange={handleChange} />
+          {errors.title && <span className="error">{errors.title}</span>}
+        </div>
+        <div>
+          <label htmlFor="number">Number</label>
+          <input type="number" name="number" value={values.number} onChange={handleChange} />
+          {errors.number && <span className="error">{errors.number}</span>}
+        </div>
+        {isUpdateShown ? <button onClick={handleSubmit}>Update</button> : <button type="submit" onClick={handleSubmit}>Submit</button>}
+      </form>
       <h1>books list</h1>
       <table>
         <thead>
@@ -93,8 +72,6 @@ export default function BookRegistrationForm() {
             </tr>
           ))}
         </tbody>
-        
-        
       </table>
     </div>
   );
