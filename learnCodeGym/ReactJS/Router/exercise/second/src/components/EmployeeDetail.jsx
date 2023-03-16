@@ -11,18 +11,22 @@ export default function EmployeeDetail() {
     <div className='container'>
       <h1>Employee Detail</h1>
       <table>
-        <tr>
-          <th>Id</th>
-          <th>Full Name</th>
-          <th>Facebook</th>
-          <th>Age</th>
-        </tr>
-        <tr>
-          <td>{employee.id}</td>
-          <td>{employee.fullname}</td>
-          <td>{employee.facebook}</td>
-          <td>{employee.age}</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Full Name</th>
+            <th>Facebook</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{employee.id}</td>
+            <td>{employee.fullname}</td>
+            <td>{employee.facebook}</td>
+            <td>{employee.age}</td>
+          </tr>
+        </tbody>
       </table>
       <div className='btn'>
         <button><Link to="/">Go back</Link></button>

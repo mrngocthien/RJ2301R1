@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
 
 export default function Login({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password:''
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    const { email, password } = formValues;
+    event.preventDefault();
     onLogin(email, password);
   };
 
+  const handleChange = (event) =>{
+    const {name, value} = event.target;
+    setFormValues(
+      {
+        ...formValues,
+        [name]: value
+      }
+    )
+  }
   return (
     <div className='container'>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Email:<br/>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="email" name='email' value={formValues.email} onChange={handleChange} />
         </label>
         <br />
         <label>
           Password:<br/>
-          <input type="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="current-password" name='password' value={formValues.password} onChange={handleChange} />
         </label>
         <br />
         <div className='btn'>
