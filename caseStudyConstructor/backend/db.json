@@ -1,0 +1,42 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "name": "Post 1",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "name": "Post 2",
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "name": "Post 3",
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "name": "Post 4",
+      "userId": 2
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "camnh"
+    },
+    {
+      "id": 2,
+      "name": "longndt"
+    },
+    {
+      "id": 3,
+      "name": "congnv"
+    },
+    {
+      "name": "camnh123",
+      "id": 4
+    }
+  ]
+}
