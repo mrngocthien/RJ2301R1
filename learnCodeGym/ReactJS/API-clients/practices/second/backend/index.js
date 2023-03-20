@@ -18,42 +18,42 @@ router.render = (req, res) => {
   })
 }
 
-//add new user
-router.post('/users', (req, res) => {
-  const { name, birthday } = req.body;
-  const id = Date.now().toString(); // generate unique id
-  const newUser = { id, name, birthday };
-  router.db.get('users').push(newUser).write(); // add new user to the database
-  res.json({ status: 1, data: newUser, message: "User created successfully" });
-});
+// //add new user
+// router.post('/users', (req, res) => {
+//   const { name, birthday } = req.body;
+//   const id = Date.now().toString(); // generate unique id
+//   const newUser = { id, name, birthday };
+//   router.db.get('users').push(newUser).write(); // add new user to the database
+//   res.json({ status: 1, data: newUser, message: "User created successfully" });
+// });
 
-//update user
-router.put('/users/:id', (req, res) => {
-  const id = req.params.id;
-  const user = req.body;
-  const index = users.findIndex((u) => u.id === id);
+// //update user
+// router.put('/users/:id', (req, res) => {
+//   const id = req.params.id;
+//   const user = req.body;
+//   const index = users.findIndex((u) => u.id === id);
 
-  if (index === -1) {
-    return res.status(404).json({ error: 'User not found' });
-  }
+//   if (index === -1) {
+//     return res.status(404).json({ error: 'User not found' });
+//   }
 
-  users[index] = { ...user, id };
+//   users[index] = { ...user, id };
 
-  res.json(users[index]);
-});
+//   res.json(users[index]);
+// });
 
-//delete user
-router.delete('/users/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = users.findIndex(user => user.id === id);
+// //delete user
+// router.delete('/users/:id', (req, res) => {
+//   const id = parseInt(req.params.id);
+//   const index = users.findIndex(user => user.id === id);
   
-  if (index !== -1) {
-    users.splice(index, 1);
-    res.status(200).json({ message: `User with id ${id} has been deleted.` });
-  } else {
-    res.status(404).json({ message: `User with id ${id} not found.` });
-  }
-});
+//   if (index !== -1) {
+//     users.splice(index, 1);
+//     res.status(200).json({ message: `User with id ${id} has been deleted.` });
+//   } else {
+//     res.status(404).json({ message: `User with id ${id} not found.` });
+//   }
+// });
 
 
 

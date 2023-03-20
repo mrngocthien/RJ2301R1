@@ -30,23 +30,21 @@ const UserCreator = () => {
         );
     }
 
-    const handleSubmit = () => { 
-        if (userId) {
-            alert('User da ton tai')
-        } else {
-            async function postUser() {
-                const newUser = {
-                  id: user.id,
-                  name: user.name,
-                  birthday: user.birthday
-                };
-                const res = await axios.post(`http://localhost:3000/users`, newUser);
-                if (res.data.status === 1) {
-                  alert(`Create ${user.name} ${JSON.stringify(res.data.data)} successfully!!!`
-                  )
-                }
-              }
-              postUser()
+    const handleSubmit = async () => { 
+        try {
+            const newUser = {
+                id: user.id,
+                name: user.name,
+                birthday: user.birthday
+              };
+              const res = await axios.post(`http://localhost:3000/users`, newUser);
+              if (res.data.status === 1) {
+                alert(`Create ${user.name} ${JSON.stringify(res.data.data)} successfully!!!`
+                )
+            }
+        } catch (error) {
+            console.error(error);
+            alert(`Error creating user: ${error.message}`);
         }
     }
 

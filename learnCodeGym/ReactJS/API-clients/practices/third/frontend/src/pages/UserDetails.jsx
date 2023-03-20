@@ -32,34 +32,34 @@ const UserDetails = () => {
 
     const handleUpdate = async () => {
         try {
-          const updatedUser = {
-            id: user.id,
-            name: user.name,
-            birthday: user.birthday
-          };
-          const res = await axios.put(`http://localhost:3000/users/${user.id}`, updatedUser);
-          if (res.data.status === 1) {
-            alert(
-              `Update user ${JSON.stringify(
-                res.data.data
-              )} successfully!!!`
-            );
-          }
+            const updatedUser = {
+                id: user.id,
+                name: user.name,
+                birthday: user.birthday
+            };
+            const res = await axios.put(`http://localhost:3000/users/${user.id}`, updatedUser);
+            if (res.data.status === 1) {
+                alert(
+                    `Update user ${JSON.stringify(
+                    res.data.data
+                    )} successfully!!!`
+                );
+            }
         } catch (error) {
-          console.error(error);
-          alert(`Error updating user: ${error.message}`);
+            console.error(error);
+            alert(`Error updating user: ${error.message}`);
         }
     };
       
 
     const handleDelete = async () => {
         try {
-          const res = await axios.delete(`http://localhost:3000/users/${user.id}`);
-          if (res.data.status === 1) {
-            alert(`User deleted successfully!!!`);
-          }
+            const res = await axios.delete(`http://localhost:3000/users/${user.id}`);
+            if (res.data.status === 1) {
+                alert(`User deleted successfully!!!`);
+            }
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
     };
       
