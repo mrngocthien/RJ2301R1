@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const BookList = () => {
     const [books, setBooks] = React.useState([])
     const [isLoading, setLoading] = React.useState(false) 
+    const [isBookDeleted, setIsBookDeleted] = React.useState(false);
+
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -18,10 +20,10 @@ const BookList = () => {
           setBooks(data)
         }
       }
-  
+    
       getPosts()
-    }, [])
-  
+    }, [isBookDeleted])
+    
     const handleCreate = () => { 
       navigate('/book/add')
      }
@@ -29,16 +31,22 @@ const BookList = () => {
       return <p>Loading...</p>
     }
   
-    const handleDelete = async () => {
+    const handleDelete = async (bookId) => {
       try {
-          const res = await axios.delete(`http://localhost:3000/books/${books.id}`);
+          const res = await axios.delete(`http://localhost:3000/books/${bookId}`);
           if (res.data.status === 1) {
               alert(`Book deleted successfully!!!`);
+              setIsBookDeleted(true);
+              setBooks(books.filter(book => book.id !== bookId));
           }
       } catch (error) {
           console.error(error);
       }
     };
+
+    const handleEdit = (bookId) => {
+      navigate(`/books/${bookId}`);
+    }
 
     return (
       <div className='container'>
@@ -62,8 +70,8 @@ const BookList = () => {
               <td>{item.author}</td>
               <td>{item.quantity}</td>
               <td>
-                <a href={`/books/${item.id}`}><button className='edit'>Edit</button></a>
-                <button className='del' onClick={handleDelete}>Delete</button>
+                <button className='edit' onClick={() => handleEdit(item.id)}>Edit</button>
+                <button className='del' onClick={() => handleDelete(item.id)}>Delete</button>
               </td>
             </tr>
             )}

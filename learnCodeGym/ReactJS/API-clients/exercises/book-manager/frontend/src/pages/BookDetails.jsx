@@ -4,46 +4,43 @@ import axios from "axios";
 
 const BookDetails = () => {
     const { bookId } = useParams();
-    const [books, setBooks] = useState({});
-    console.log(bookId)
+    const [formData, setFormData] = useState({ title: "", author: "", quantity: "" });
 
-    useEffect(() => { 
+    useEffect(() => {
         if (bookId) {
-            async function getPost() {
-                const res = await axios.get(`http://localhost:3000/books/${bookId}`)
-                if (res.data.status === 1) { 
-                    const data = res.data.data
-                    setBooks(data)
+            async function getBook() {
+                const res = await axios.get(`http://localhost:3000/books/${bookId}`);
+                if (res.data.status === 1) {
+                setFormData(res.data.data);
                 }
             }
-            getPost();    
+            getBook();
         }
-
     }, [bookId]);
 
-    const handleChange = (event) => { 
+    const handleChange = (event) => {
         const { name, value } = event.target;
-        setBooks(
-            {
-                ...books,
-                [name]: value
-            }
-        );
-    }
+        setFormData((prevState) => ({
+          ...prevState,
+          [name]: value
+        }));
+      };
 
-    const handleUpdate = async () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
-            const updatedBook = {
-                title: books.title,
-                author: books.author,
-                quantity: books.quantity
+            const updated = {
+                title: event.target.title.value,
+                author: event.target.author.value,
+                quantity: event.target.quantity.value
             };
-            const res = await axios.put(`http://localhost:3000/books/${bookId}`, updatedBook);
+            const res = await axios.put(
+                `http://localhost:3000/books/${bookId}`,
+                updated
+            );
             if (res.data.status === 1) {
                 alert(
-                    `Update book ${JSON.stringify(
-                    res.data.data
-                    )} successfully!!!`
+                `Update book ${JSON.stringify(res.data.data)} successfully!!!`
                 );
             }
         } catch (error) {
@@ -51,40 +48,35 @@ const BookDetails = () => {
             alert(`Error updating book: ${error.message}`);
         }
     };
-      
+
+    if (!formData) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
-            <h1>Book details</h1>
-            <form>
-                <div>
-                    <label>Title</label><br />
-                    <input 
-                        name="title" 
-                        value={books.title || ''} 
-                        onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Author</label><br />
-                    <input 
-                        name="author" 
-                        value={books.author || ''} 
-                        onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Quantity</label><br />
-                    <input
-                        type="number"
-                        name="quantity"
-                        value={books.quantity || ''}
-                        onChange={handleChange}
-                    />
-                </div><br />
-                <button type="button" onClick={handleUpdate}>
-                Update
-                </button>
-            </form>
+        <h1>Book details</h1>
+        <form onSubmit={handleSubmit}>
+            <div>
+            <label htmlFor="title">Title</label>
+            <br />
+            <input name="title" defaultValue={formData.title} onChange={handleChange} />
+            </div>
+            <div>
+            <label htmlFor="author">Author</label>
+            <br />
+            <input name="author" defaultValue={formData.author} onChange={handleChange} />
+            </div>
+            <div>
+            <label htmlFor="quantity">Quantity</label>
+            <br />
+            <input type="number" name="quantity" defaultValue={formData.quantity} onChange={handleChange} />
+            </div>
+            <br />
+            <button type="submit">Update</button>
+        </form>
         </div>
-    )
-}
+    );
+};
 
-export default BookDetails
+export default BookDetails;
