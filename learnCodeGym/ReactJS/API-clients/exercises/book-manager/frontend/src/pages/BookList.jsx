@@ -7,7 +7,6 @@ const BookList = () => {
     const [books, setBooks] = React.useState([])
     const [isLoading, setLoading] = React.useState(false) 
     const [isBookDeleted, setIsBookDeleted] = React.useState(false);
-
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -46,6 +45,7 @@ const BookList = () => {
 
     const handleEdit = (bookId) => {
       navigate(`/books/${bookId}`);
+      console.log(bookId)
     }
 
     return (
@@ -66,7 +66,7 @@ const BookList = () => {
           <tbody>
             {books.map(item => 
             <tr key={item.id}>
-              <td><a href={`/books/${item.id}`}>{ item.title }</a></td>
+              <td>{item.title}</td>
               <td>{item.author}</td>
               <td>{item.quantity}</td>
               <td>
