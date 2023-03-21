@@ -5,6 +5,7 @@ import axios from "axios";
 const UserDetails = () => {
     const { userId } = useParams();
     const [user, setUser] = useState({});
+    console.log(userId)
 
     useEffect(() => { 
         if (userId) {
