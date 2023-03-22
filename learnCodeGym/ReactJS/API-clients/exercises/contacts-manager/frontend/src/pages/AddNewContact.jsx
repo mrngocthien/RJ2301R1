@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const AddNewContact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", image: "", phone: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [fileSelected, setFileSelected] = useState();
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -15,15 +16,38 @@ const AddNewContact = () => {
     }));
   };
 
+  const handleFileSelected = (event) => { 
+    setFileSelected(event.target.files[0]);
+  }
+
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const newContact = {
-        name: formData.name,
-        email: formData.email,
-        image: formData.image,
-        phone: formData.phone
-      };
+      let image = "";
+      if (fileSelected) {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileSelected);
+        reader.onloadend = () => {
+          image = reader.result;
+          createContact(image);
+        };
+      } else {
+        createContact(image);
+      }
+    } catch (error) {
+      console.error(error);
+      alert(`Error creating contact: ${error.message}`);
+    }
+  };
+
+  const createContact = async (image) => {
+    const newContact = {
+      name: formData.name,
+      email: formData.email,
+      image,
+      phone: formData.phone
+    };
+    try {
       const res = await axios.post(`http://localhost:3000/contacts`, newContact);
       if (res.data.status === 1) {
         alert(`Create ${formData.name} ${JSON.stringify(res.data.data)} successfully!!!`);
@@ -43,7 +67,7 @@ const AddNewContact = () => {
 
   return (
     <div>
-      <h1>Contact creator</h1>
+      <h1>New Contact</h1>
       <form>
         <div>
           <img 
@@ -51,11 +75,11 @@ const AddNewContact = () => {
             alt="" 
             style={{width: "50px", borderRadius: "50%", marginRight: "10px"}}
           />
-          <button 
-            style={{padding: "5px", borderRadius: "10px", background: "#2297f0", color: "#ffff"}}
-          >
-            Add Image
-          </button>
+          <input
+            type="file" 
+            name="file"
+            onChange={(e) => handleFileSelected(e)}
+          />
         </div>
         <div>
           <label>Name</label><br />
@@ -63,7 +87,7 @@ const AddNewContact = () => {
             type='text'
             name="name"
             value={formData.name}
-            onChange={handleChange} />
+            onChange={(e) => handleChange(e)} />
         </div>
         <div>
           <label>email</label><br />
@@ -71,16 +95,16 @@ const AddNewContact = () => {
             type="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
           <label>Phone</label><br />
           <input
-            type="number"
+            type="phone"
             name="phone"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
           />
         </div><br />
         <button type="button" onClick={handleSubmit}>
@@ -91,4 +115,4 @@ const AddNewContact = () => {
   )
 }
 
-export default AddNewContact
+export default AddNewContact;

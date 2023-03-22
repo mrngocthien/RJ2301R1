@@ -36,14 +36,15 @@
     transform: rotate(360deg);
   }
 }
-.header {
-  width: 70%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+
+.container {
+  width: 40%;
+  margin: auto;
+  
 }
-.header button {
-  padding: 10px 20px;
+.addNew {
+  padding: 5px 10px;
+  margin-top: 10px;
   border-radius: 10px;
   color: white;
   background: green;
@@ -51,16 +52,14 @@
   cursor: pointer;
   transition: 0.5s;
 }
-.header button:hover {
+.addNew:hover {
   background: orange;
   color: black;
 }
 h1 {
   color: red;
 }
-.container, table {
-  width: 70%;
-}
+
 .edit {
   background: rgb(93, 159, 233);
   color: white;

@@ -49,36 +49,36 @@ const Contacts = () => {
 
     return (
       <div className='container'>
-        <div className='header'>
-          <h1>Contact</h1>
-          <button onClick={handleCreate}>Add a new Contact</button>
-        </div>
+        <h1>Contact</h1>
         <table>
           <thead>
             <tr>
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Actions</th>
+              <th colSpan={2}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {contacts.map(item => 
             <tr key={item.id}>
-              <td style={{display: "flex", alignItems: "center", padding: "15px"}}>
-                <img src={item.image} alt="" style={{width: "40px", borderRadius: "50%", marginRight: "5px"}} />
+              <td style={{display: "flex", alignItems: "center"}}>
+                <img src={item.image} alt="" style={{width: "40px", height:"40px", borderRadius: "50%", marginRight: "5px"}} />
                 <span>{item.name}</span>
               </td>
               <td>{item.email}</td>
               <td>{item.phone}</td>
               <td>
                 <button className='edit' onClick={() => handleEdit(item.id)}>Edit</button>
+              </td>
+              <td>
                 <button className='del' onClick={() => handleDelete(item.id)}>Delete</button>
               </td>
             </tr>
             )}
           </tbody>
         </table>
+        <button className='addNew' onClick={handleCreate}>Add a new Contact</button>
       </div>
     );
 }
