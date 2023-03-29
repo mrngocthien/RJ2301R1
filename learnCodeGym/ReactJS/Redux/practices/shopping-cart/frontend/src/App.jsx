@@ -1,11 +1,13 @@
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import NewTodo from './components/NewTodo';
-import TodoList from './components/TodoList';
+import React from 'react'
+import ProductsList from './components/ProductList';
 
 function App() {
   return (
-    <div className="container">
-      redux
+    <div>
+      <h2>Shopping Cart</h2>
+      <hr/>
+      <ProductsList />
+      <hr/>
     </div>
   );
 }
